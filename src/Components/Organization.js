@@ -16,6 +16,8 @@ const organization = ({organization, errors}) => {
         <p>
           <strong>Issues from Organization:</strong>
           <a href={organization.url}>{organization.name}</a>
+          <br />
+          <strong>Organization databaseId: </strong><span>{organization.databaseId}</span>
         </p> 
         <Repository repository={organization.repository}/>
       </div>

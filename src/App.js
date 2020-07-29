@@ -20,7 +20,10 @@ function App() {
     debugger;
     const [organization, repository] = path.split('/');
     axiosGitHubGraphQL
-    .post('',{query: getIssuesOfRepositorhy(organization,repository)})
+    .post('',{
+      query: GET_ISSUES_OF_REPOSITORY,
+      variables: { organization, repository },
+  })
     .then(result => {
       organizationSetter(result.data.data.organization);
       errorsSetter(result.data.errors);
@@ -28,11 +31,14 @@ function App() {
   }
 
 
-  const getIssuesOfRepositorhy = (organization, repository) =>  `{
-    organization(login: "${organization}"){
+  const GET_ISSUES_OF_REPOSITORY =`
+  query ($organization: String!, $repository: String!) {
+    organization(login: $organization){
       name
       url
-      repository(name: "${repository}") {
+      databaseId
+      location
+      repository(name: $repository) {
         name
         url 
         issues(last: 5) {
